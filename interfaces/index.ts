@@ -1,24 +1,33 @@
-export type User = {
+export type NavItemProp = {
   name: string
-  picture: string
-  sub: string
-  email?: string
-}
-
-export type Comment = {
-  id: string
-  created_at: number
   url: string
-  text: string
-  user: User
+  desc: string
+  categoryId: string
+  logo: string
 }
 
-export type Post = {
-  slug?: string
-  title?: string
-  author?: string
-  date?: Date
-  content?: string
-  excerpt?: string
-  [key: string]: any
+export type CategoryProp = {
+  name: string
+  uuid: string
+  userId?: string
+}
+
+export type ToolFormProp = {
+  name: string
+  url: string
+  logo: string
+  desc: string
+  category_id: string
+  user_id?: string
+  image?: { fileList }
+}
+
+export type ToolProp = {
+  id: string
+  name: string
+  url: string
+  logo: string
+  desc: string
+  category_id: string
+  user_id?: string
 }
