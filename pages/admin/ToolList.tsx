@@ -83,3 +83,5 @@ export const ToolList = ({ loading, dataSource, onDelete, showEdit }) => {
     <Table rowKey="id" loading={loading} dataSource={dataSource} columns={columns} />
   </div>
 }
+
+export default ToolList
