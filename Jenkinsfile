@@ -19,9 +19,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'rm -rf /www/wwwroot/${ItemName}.fendy5.cn/.next'
-        sh 'mv ./.next /www/wwwroot/${ItemName}.fendy5.cn'
-        sh 'cd /www/wwwroot/${ItemName}.fendy5.cn/.next'
+        sh 'node -v'
         sh 'yarn start'
       }
     }
