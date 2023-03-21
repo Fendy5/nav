@@ -112,7 +112,7 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
               beforeUpload={beforeUpload}
               onChange={handleChange}
             >
-              {(imageUrl || fileList.length >= 1) ? null : uploadButton}
+              {(imageUrl || fileList?.length >= 1) ? null : uploadButton}
             </Upload>
           </Form.Item>
 
