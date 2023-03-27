@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { getHomeApi } from '../apis/home'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Tag, Tooltip } from 'antd'
 
 type toolItem = {
   id: number
@@ -31,20 +32,25 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }) {
             return (
               <div key={i.uuid} className='space-y-6 mb-12'>
                 <h2 className='text-xl font-bold'>{ i.name }</h2>
-                <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
+                <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5'>
                   {
                     i.tools.map(j => {
-                      return <div key={ j.id } className='card'>
+                      return <Link key={ j.id }  prefetch={false} target={'_blank'} href={j.url} className='card'>
                         <div className='flex items-center'>
-                          <img className='w-8 h-8 rounded-full' src={ j.logo } alt='' />
+                          <img className='w-8 h-8 rounded-full object-cover' src={ j.logo } alt='' />
                         </div>
                         <div className='pl-2 w-desc'>
                           <h3 className='text-lg font-bold cursor-pointer truncate'>
-                            <Link prefetch={false} target={'_blank'} href={j.url}>{ j.name }</Link>
+                            <Tooltip placement="top" title={j.name} arrow={true}>
+                              { j.name }
+                            </Tooltip>
+                            <Tag className={'ml-2'} color="default">免费</Tag>
                           </h3>
-                          <p className='text-gray-500 truncate-2 h-10'>{ j.desc }</p>
+                          <Tooltip placement="bottom" title={j.desc} arrow={true}>
+                            <p className='text-gray-500 truncate-2 h-10'>{ j.desc }</p>
+                          </Tooltip>
                         </div>
-                      </div>
+                      </Link>
                     })
                   }
                 </div>
@@ -57,7 +63,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { data: toolList } = await getHomeApi()
   return {
     props: {
