@@ -7,20 +7,36 @@ pipeline {
       }
     }
 
+//    stage('Pre Build') {
+//      steps {
+//        sh 'rm -rf /www/wwwroot/${ItemName}.fendy5.cn/*'
+//        sh 'mv ./* /www/wwwroot/${ItemName}.fendy5.cn/'
+//      }
+//    }
+
     stage('Build') {
       steps {
-        nodejs(nodeJSInstallationName: 'NodeJS 14.19.3') {
-          sh 'node -v'
-          sh 'yarn install'
-          sh 'yarn build'
-        }
+//        nodejs(nodeJSInstallationName: 'NodeJS 14.19.3') {
+//          sh 'node -v'
+//          sh 'yarn install'
+//          sh 'yarn build'
+//        }
+            sh 'node -v'
+            sh 'yarn install'
+            sh 'yarn build'
       }
     }
 
     stage('Deploy') {
       steps {
-        sh 'node -v'
-        sh 'yarn start'
+//        nodejs(nodeJSInstallationName: 'NodeJS 14.19.3') {
+//          sh 'node -v'
+//          sh 'pm2 start yarn --name nav -- start'
+//          sh 'pm2 save'
+//          sh 'pm2 start yarn --name nav -- start'
+          sh 'pm2 restart nav'
+          sh 'pm2 save'
+//        }
       }
     }
 
