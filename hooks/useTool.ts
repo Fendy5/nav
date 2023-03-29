@@ -5,21 +5,19 @@
  */
 
 import { useEffect, useState } from 'react'
-import { CategoryProp, TagProp, ToolFormProp, ToolProp } from '../interfaces'
-import { getCategoriesApi } from '../apis/category'
+import { ToolFormProp, ToolProp } from '../interfaces'
 import { addToolApi, deleteToolApi, getToolsApi, updateToolApi } from '../apis/nav-tool'
 import { Form, UploadFile } from 'antd'
-import { getTagsApi } from '../apis/tag'
 
 export default function() {
   const [imageUrl, setImageUrl] = useState<string>()
   const [loading, setLoading] = useState(false)
-  const [categories, setCategories] = useState<CategoryProp[]>()
+
   const [open, setOpen] = useState(false)
   const [dataSource, setDataSource] = useState<ToolProp[]>()
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [toolId, setToolId] = useState('')
-  const [tagOptions, setTagOptions] = useState<TagProp[]>([])
+
   const [form] = Form.useForm()
 
   const onFinish = async (formData: ToolFormProp) => {
@@ -78,9 +76,7 @@ export default function() {
   }
 
   useEffect(() => {
-    getCategoriesApi().then(i => setCategories(i.data))
-    getTagsApi().then(i => setTagOptions(i.data))
     getToolList()
   }, [])
-  return { tagOptions, setImageUrl, imageUrl, loading, showAdd, categories, onFinish, setOpen, open, setDataSource, dataSource, onDelete, showEdit, form, fileList, setFileList, toolId }
+  return { setImageUrl, imageUrl, loading, showAdd, onFinish, setOpen, open, setDataSource, dataSource, onDelete, showEdit, form, fileList, setFileList, toolId }
 }

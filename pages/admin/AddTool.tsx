@@ -3,13 +3,15 @@
  * @CreateTime 2023/3/20 16:02
  * @Description
  */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input, message, Modal, Select, Space, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import useTool from '../../hooks/useTool'
 import { getBase64 } from '../../utils'
 import Link from 'next/link'
+import { CategoryProp, TagProp } from '../../interfaces'
+import { getCategoriesApi } from '../../apis/category'
+import { getTagsApi } from '../../apis/tag'
 
 const beforeUpload = (file: RcFile) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
@@ -25,6 +27,8 @@ const beforeUpload = (file: RcFile) => {
 
 export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, form, fileList, setFileList, onFinish }) {
   const [loading, setLoading] = useState(false)
+  const [categories, setCategories] = useState<CategoryProp[]>()
+  const [tagOptions, setTagOptions] = useState<TagProp[]>([])
 
   const handleChange: UploadProps['onChange'] = ({ file, fileList }) => {
     if (file.status) {
@@ -51,8 +55,10 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
     </div>
   )
 
-  const { categories, tagOptions } = useTool()
-
+  useEffect(() => {
+    getCategoriesApi().then(i => setCategories(i.data))
+    getTagsApi().then(i => setTagOptions(i.data))
+  }, [])
   return <>
     <Modal
       onCancel={() => setOpen(false)}
