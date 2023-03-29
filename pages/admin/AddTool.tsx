@@ -55,6 +55,7 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
 
   return <>
     <Modal
+      onCancel={() => setOpen(false)}
       title={!toolId ? '新增' : '编辑'}
       footer={[]}
       open={open}>
