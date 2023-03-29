@@ -25,14 +25,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     //     <Component {...pageProps} />
     //   </main>
     // </Auth0Provider>
-    <>
+    <Auth0Provider clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID} domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="Clone and deploy your own Next.js portfolio in minutes."
+          content="设计导航、前端导航、产品经理导航"
         />
-        <title>My awesome blog</title>
+        <title>互联网人的导航</title>
       </Head>
 
       {/*<Header />*/}
@@ -40,6 +40,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <main className="py-14">
         <Component {...pageProps} />
       </main>
-    </>
+    </Auth0Provider>
   )
 }
