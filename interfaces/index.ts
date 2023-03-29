@@ -12,6 +12,11 @@ export type CategoryProp = {
   userId?: string
 }
 
+export type TagProp = {
+  id: number
+  name: string
+}
+
 export type ToolFormProp = {
   name: string
   url: string

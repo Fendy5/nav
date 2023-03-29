@@ -51,7 +51,7 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
     </div>
   )
 
-  const { categories } = useTool()
+  const { categories, tagOptions } = useTool()
 
   return <>
     <Modal
@@ -74,22 +74,40 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
 
           <Form.Item label='分类' name='category_id' rules={[{ required: true, message: '请选择类别' }]}>
             <Select placeholder='请选择类别'
-                    dropdownRender={(menu) => (
-                      <>
-                        {menu}
-                          <Link href={'/admin/category'}>
-                            <Button block type="link" icon={<PlusOutlined />}>
-                              添加分类
-                            </Button>
-                          </Link>
-                      </>
-                    )}
-                    options={categories?.map((i) => ({ label: i.name, value: i.uuid }))}
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                    <Link href={'/admin/category'}>
+                      <Button block type="link" icon={<PlusOutlined />}>
+                        添加分类
+                      </Button>
+                    </Link>
+                </>
+              )}
+              options={categories?.map((i) => ({ label: i.name, value: i.uuid }))}
             />
           </Form.Item>
 
           <Form.Item label='名称' name='name' rules={[{ required: true, message: '请输入名称' }]}>
             <Input placeholder='请输入名称' />
+          </Form.Item>
+
+          <Form.Item label='区域' name='country_id' rules={[{ required: true, message: '请选择区域' }]}>
+            <Select
+              placeholder='请选择区域'
+              options={[
+                { value: 1, label: '国内' },
+                { value: 2, label: '海外' }
+              ]}
+            />
+          </Form.Item>
+
+          <Form.Item label='版权' name='tag_id' rules={[{ required: true, message: '请选择版权' }]}>
+            <Select
+              fieldNames={{label: 'name', value: 'id'}}
+              placeholder='请选择版权'
+              options={tagOptions}
+            />
           </Form.Item>
 
           <Form.Item label='链接' name='url' rules={[{ required: true, message: '请输入链接' }]}>

@@ -10,6 +10,8 @@ type toolItem = {
   name: string
   logo: string
   url: string
+  tag: string
+  country: string
   desc: string
 }
 
@@ -40,15 +42,27 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }) {
                           <img className='w-8 h-8 rounded-full object-cover' src={ j.logo } alt='' />
                         </div>
                         <div className='pl-2 w-desc'>
-                          <h3 className='text-lg font-bold cursor-pointer truncate'>
+                          {/*<h3 className='text-lg font-bold cursor-pointer truncate'>*/}
+                          {/*  <Tooltip placement="top" title={j.name} arrow={true}>*/}
+                          {/*    { j.name }*/}
+                          {/*  </Tooltip>*/}
+                          {/*  <Tag className={'ml-2'} color="default">{ j.tag }</Tag>*/}
+                          {/*  <Tag color="default">{ j.country }</Tag>*/}
+                          {/*</h3>*/}
+                          <div className={'flex'}>
                             <Tooltip placement="top" title={j.name} arrow={true}>
-                              { j.name }
+                              <h3 className='text-lg font-bold cursor-pointer truncate'>{ j.name }</h3>
                             </Tooltip>
-                            <Tag className={'ml-2'} color="default">免费</Tag>
-                          </h3>
-                          <Tooltip placement="bottom" title={j.desc} arrow={true}>
-                            <p className='text-gray-500 truncate-2 h-10'>{ j.desc }</p>
-                          </Tooltip>
+                            <div className={'flex items-center'}>
+                              <Tag className={'ml-2'} color="default">{ j.tag }</Tag>
+                              <Tag color="default">{ j.country }</Tag>
+                            </div>
+                          </div>
+                          <p className='text-gray-500 truncate-2 h-10'>
+                            <Tooltip placement="bottom" title={j.desc} arrow={true}>
+                              { j.desc }
+                            </Tooltip>
+                          </p>
                         </div>
                       </Link>
                     })

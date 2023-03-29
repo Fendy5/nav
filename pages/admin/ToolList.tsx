@@ -22,10 +22,15 @@ export const ToolList = ({ loading, dataSource, onDelete, showEdit }) => {
     {
       title: '名称',
       dataIndex: 'name',
-      width: 200,
+      width: 150,
       ellipsis: {
         showTitle: true,
       }
+    },
+    {
+      title: '区域',
+      dataIndex: 'country',
+      width: 80
     },
     {
       title: '类别',
@@ -34,6 +39,11 @@ export const ToolList = ({ loading, dataSource, onDelete, showEdit }) => {
       ellipsis: {
         showTitle: true,
       }
+    },
+    {
+      title: '版权',
+      dataIndex: 'tag',
+      width: 80
     },
     {
       title: '链接',
