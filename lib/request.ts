@@ -8,7 +8,7 @@ import { message } from 'antd'
 
 const request = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  timeout: 15000
+  timeout: 30000
 })
 
 // export interface ResponseDataType<T> {
