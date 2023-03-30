@@ -25,3 +25,21 @@
 .w-desc {
   width: calc(100% - 32px);
 }
+.h-200 {
+  height: 200px;
+}
+
+/*app布局*/
+
+.layout {
+  @apply flex;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px 2px;
+  transition: all 0.3s ease 0s;
+  backdrop-filter: blur(10px);
+  background: rgba(247, 247, 247, 0.5);
+}
+.main-app {
+  @apply py-14 h-screen overflow-auto;
+  flex: 1;
+}

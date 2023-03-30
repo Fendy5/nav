@@ -3,7 +3,6 @@ import '../styles/index.css'
 
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Header from '../components/header'
 import { Auth0Provider } from '@auth0/auth0-react'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -36,10 +35,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       {/*<Header />*/}
-
-      <main className="py-14">
-        <Component {...pageProps} />
-      </main>
+      {/*<div className='layout'>*/}
+      {/*  <SideBar />*/}
+      {/*  <main className="main-app">*/}
+      {/*    <Component {...pageProps} />*/}
+      {/*  </main>*/}
+      {/*</div>*/}
+      <Component {...pageProps} />
     </Auth0Provider>
   )
 }
