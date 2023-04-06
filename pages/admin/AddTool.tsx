@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { CategoryProp, TagProp } from '../../interfaces'
 import { getCategoriesApi } from '../../apis/category'
 import { getTagsApi } from '../../apis/tag'
+import ImgCrop from 'antd-img-crop'
 
 const beforeUpload = (file: RcFile) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
@@ -126,19 +127,21 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
           </Form.Item>
 
           <Form.Item label='Logo' name='image' rules={[{ required: true, message: '请上传导航Logo' }]}>
-            <Upload
-              name='image'
-              listType='picture-circle'
-              fileList={fileList}
-              data={
-                { '100%': true }
-              }
-              action='/image-api'
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {(imageUrl || fileList?.length >= 1) ? null : uploadButton}
-            </Upload>
+            <ImgCrop quality={1} modalTitle={'裁剪图片'} showGrid modalOk={'确定'} modalCancel={'取消'} rotationSlider>
+              <Upload
+                name='image'
+                listType='picture-circle'
+                fileList={fileList}
+                data={
+                  { '100%': true }
+                }
+                action='/image-api'
+                beforeUpload={beforeUpload}
+                onChange={handleChange}
+              >
+                {(imageUrl || fileList?.length >= 1) ? null : uploadButton}
+              </Upload>
+            </ImgCrop>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
