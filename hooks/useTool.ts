@@ -7,11 +7,12 @@
 import { useEffect, useState } from 'react'
 import { ToolFormProp, ToolProp } from '../interfaces'
 import { addToolApi, deleteToolApi, getToolsApi, updateToolApi } from '../apis/nav-tool'
-import { Form, UploadFile } from 'antd'
+import { Form, message, UploadFile } from 'antd'
 
 export default function() {
   const [imageUrl, setImageUrl] = useState<string>()
   const [loading, setLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const [open, setOpen] = useState(false)
   const [dataSource, setDataSource] = useState<ToolProp[]>()
@@ -24,11 +25,17 @@ export default function() {
     if (typeof formData.image === 'string') {
       formData.logo = formData.image
     }
-    const { code } = toolId ? await updateToolApi(toolId, formData) : await addToolApi(formData)
-    if (code === 1) {
-      setOpen(false)
-      getToolList()
+    setSubmitLoading(true)
+    try {
+      const { code } = toolId ? await updateToolApi(toolId, formData) : await addToolApi(formData)
+      if (code === 1) {
+        setOpen(false)
+        getToolList()
+      }
+    } catch (e) {
+      await message.error('网络错误')
     }
+    setSubmitLoading(false)
   }
 
   const onDelete = async (tool: ToolProp) => {
@@ -72,5 +79,5 @@ export default function() {
   useEffect(() => {
     getToolList()
   }, [])
-  return { setImageUrl, imageUrl, loading, showAdd, onFinish, setOpen, open, setDataSource, dataSource, onDelete, showEdit, form, fileList, setFileList, toolId }
+  return { submitLoading, setImageUrl, imageUrl, loading, showAdd, onFinish, setOpen, open, setDataSource, dataSource, onDelete, showEdit, form, fileList, setFileList, toolId }
 }

@@ -11,7 +11,7 @@ import AddTool from './AddTool'
 import { ToolList } from './ToolList'
 
 export default function AdminPage() {
-  const { imageUrl, setImageUrl, loading, setOpen, open, dataSource, onDelete, showEdit, form, fileList, setFileList, onFinish, showAdd, toolId } = useTool()
+  const { submitLoading, imageUrl, setImageUrl, loading, setOpen, open, dataSource, onDelete, showEdit, form, fileList, setFileList, onFinish, showAdd, toolId } = useTool()
 
   return <>
     <Head>
@@ -21,7 +21,7 @@ export default function AdminPage() {
     <div className='p-4'>
       <Button type='primary' onClick={showAdd} className='mb-4'>新增</Button>
       <ToolList loading={loading} showEdit={showEdit} onDelete={onDelete} dataSource={dataSource} />
-      <AddTool imageUrl={imageUrl} setImageUrl={setImageUrl} onFinish={onFinish} form={form} setOpen={setOpen} open={open} fileList={fileList} setFileList={setFileList} toolId={toolId} />
+      <AddTool submitLoading={submitLoading} imageUrl={imageUrl} setImageUrl={setImageUrl} onFinish={onFinish} form={form} setOpen={setOpen} open={open} fileList={fileList} setFileList={setFileList} toolId={toolId} />
     </div>
   </>
 }

@@ -4,10 +4,9 @@
  * @Description
  */
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, message, Modal, Select, Space, Upload, UploadProps } from 'antd'
+import { Button, Form, Input, message, Modal, Select, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { getBase64 } from '../../utils'
 import Link from 'next/link'
 import { CategoryProp, TagProp } from '../../interfaces'
 import { getCategoriesApi } from '../../apis/category'
@@ -26,18 +25,19 @@ const beforeUpload = (file: RcFile) => {
   return isJpgOrPng && isLt2M
 }
 
-export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, form, fileList, setFileList, onFinish }) {
+export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, form, fileList, setFileList, onFinish, submitLoading }) {
   const [loading, setLoading] = useState(false)
   const [categories, setCategories] = useState<CategoryProp[]>()
   const [tagOptions, setTagOptions] = useState<TagProp[]>([])
 
-  const handleChange: UploadProps['onChange'] = ({ file, fileList }) => {
+  const handleChange: UploadProps['onChange'] = async ({ file, fileList }) => {
     if (file.status) {
       setFileList(fileList)
     }
     switch (file.status) {
       case 'done':
         form.setFieldValue('image', fileList?.[0].response.image_url)
+        message.success('图片上传成功')
         break
       case 'error':
         message.error('上传图片出错，请跟换别的图片')
@@ -143,7 +143,7 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
-            <Button type='primary' htmlType='submit'>
+            <Button disabled={submitLoading} type='primary' htmlType='submit'>
               确定
             </Button>
             <Button onClick={() => setOpen(false)} className={'ml-4'}>取消</Button>
