@@ -35,18 +35,16 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
     if (file.status) {
       setFileList(fileList)
     }
-    if (file.status === 'uploading') {
-      setLoading(true)
-      return
-    }
-    if (file.status === 'done') {
-      getBase64(file.originFileObj as RcFile, (url) => {
-        setLoading(false)
-        setImageUrl(url)
-      })
-    }
-    if (file.status === 'removed') {
-      setImageUrl('')
+    switch (file.status) {
+      case 'done':
+        form.setFieldValue('image', fileList?.[0].response.image_url)
+        break
+      case 'error':
+        message.error('上传图片出错，请跟换别的图片')
+        setFileList([])
+        break
+      case 'removed':
+        setImageUrl('')
     }
   }
 
@@ -122,11 +120,11 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
             <Input placeholder='请输入链接' />
           </Form.Item>
 
-          <Form.Item name='desc' label='描述' rules={[{ required: true, message: '请输入导航描述' }]}>
+          <Form.Item label='描述' name='desc' rules={[{ required: true, message: '请输入导航描述' }]}>
             <Input.TextArea placeholder='请输入描述' />
           </Form.Item>
 
-          <Form.Item label='Logo' name='image' rules={[{ required: true, message: '请上传导航Logo' }]}>
+          <Form.Item label='Logo' name='image' rules={[{ required: true, message: '请输入导航描述' }]} >
             <ImgCrop quality={1} modalTitle={'裁剪图片'} showGrid modalOk={'确定'} modalCancel={'取消'} rotationSlider>
               <Upload
                 name='image'
