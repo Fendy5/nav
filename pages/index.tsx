@@ -83,7 +83,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }) {
                               <div className='h-10'>
                             <span className='text-gray-500 truncate-2'>
                             <Tooltip placement="bottom" title={j.desc} arrow={true}>
-                              { j.desc }
+                              <div>{ j.desc }</div>
                             </Tooltip>
                             </span>
                               </div>
