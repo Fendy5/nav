@@ -89,11 +89,11 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                               </div>
                               <div className={'flex justify-between'}>
                                 <div className={'flex'}>
-                                  <span>
+                                  <span className={'flex'}>
                                     <HeartOutlined />
                                     <span className='ml-1'>150</span>
                                   </span>
-                                  <span className={'ml-3'}>
+                                  <span className={'ml-3 flex'}>
                                     <EyeOutlined />
                                     <span className={'ml-1'}>230</span>
                                   </span>
