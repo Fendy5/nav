@@ -1,0 +1,9 @@
+.menu {
+  width: 256px;
+  height: calc(100vh - 200px);
+  background: inherit;
+
+  /*background-color: #1677ff;*/
+  /*color: white;*/
+}
+

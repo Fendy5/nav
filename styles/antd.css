@@ -4,3 +4,8 @@
 .ant-space-item {
   color: #1677ff;
 }
+
+.ant-menu-item-selected {
+  /*background-color: #8247ff !important;*/
+  color: #fff !important;
+}

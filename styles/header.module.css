@@ -1,0 +1,6 @@
+.container {
+  @apply shadow-main flex justify-end items-center;
+  height: 65px;
+  background-color: #eee4ee;
+  /*box-shadow: 0 0 10px 5px #0000000d;*/
+}

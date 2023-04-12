@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { Menu, MenuProps } from 'antd'
 import Image from 'next/image'
 import { CategoryProp } from '../interfaces'
+import sideBar from '../styles/sideBar.module.css'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -53,7 +54,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     </div>
     <Menu
       onClick={onClick}
-      style={{ width: 256, background: 'inherit', height: 'calc(100vh - 200px)' }}
+      className={sideBar.menu}
       defaultSelectedKeys={[activeKey]}
       mode="inline"
       selectedKeys={[activeKey]}

@@ -1,6 +1,6 @@
 @import "antd.css";
 .card {
-  @apply rounded-md p-4 shadow-main flex w-full transition duration-300 ease-in-out hover:shadow-card hover:-translate-y-1 hover:scale-105;
+  @apply rounded-md p-4 shadow-main w-full transition duration-300 ease-in-out hover:shadow-card hover:-translate-y-1 hover:scale-105;
   background: #fff;
   box-shadow: 0 0 10px 5px #0000000d;
 }
@@ -40,6 +40,6 @@
   background: rgba(247, 247, 247, 0.5);
 }
 .main-app {
-  @apply py-14 h-screen overflow-auto;
+  @apply py-14 overflow-auto;
   flex: 1;
 }
