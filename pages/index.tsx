@@ -52,21 +52,21 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
         <meta name='description' content='互联网人必备网站导航' />
       </Head>
       <div className='layout'>
-        <SideBar activeKey={activeKey} categories={toolList} />
-        <div id={'app'} className='h-screen overflow-auto flex-1'>
-          <Header />
-          <div className='main-app'>
-            <Container>
-              {
-                toolList.map(i => {
-                  return (
-                    <div key={i.uuid} className='space-y-6 mb-12'>
-                      <h2 id={i.uuid} className='text-xl font-bold'>{i.name}</h2>
-                      <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 xxxl:grid-cols-5'>
-                        {
-                          i.tools.map(j => {
-                            return <Link key={j.id} prefetch={false} target={'_blank'} href={j.url}>
-                              <Expand className='card'>
+        <Header />
+        <div className='main-app'>
+          <SideBar activeKey={activeKey} categories={toolList} />
+          <div id={'app'} className='h-screen overflow-auto flex-1'>
+            <div className='main-content'>
+              <Container>
+                {
+                  toolList.map(i => {
+                    return (
+                      <div key={i.uuid} className='space-y-6 mb-12'>
+                        <h2 id={i.uuid} className='text-xl font-bold'>{i.name}</h2>
+                        <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 xxxl:grid-cols-5'>
+                          {
+                            i.tools.map(j => {
+                              return <Link className='card' key={j.id} prefetch={false} target={'_blank'} href={j.url}>
                                 <div className='flex'>
                                   <img className='w-8 h-8 mr-2 rounded-full object-cover' src={j.logo} alt='' />
                                   <Tooltip placement='top' title={j.name} arrow={true}>
@@ -105,16 +105,16 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                                     <Tag color='default'>{j.country}</Tag>
                                   </div>
                                 </div>
-                              </Expand>
-                            </Link>
-                          })
-                        }
+                              </Link>
+                            })
+                          }
+                        </div>
                       </div>
-                    </div>
-                  )
-                })
-              }
-            </Container>
+                    )
+                  })
+                }
+              </Container>
+            </div>
           </div>
         </div>
       </div>

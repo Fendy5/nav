@@ -1,6 +1,10 @@
 .container {
   @apply shadow-main flex justify-end items-center;
   height: 65px;
-  background-color: #eee4ee;
-  /*box-shadow: 0 0 10px 5px #0000000d;*/
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 5px #0000000d;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 39;
 }

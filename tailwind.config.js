@@ -27,7 +27,8 @@ module.exports = {
         main: 'rgb(0 0 0 / 5%)'
       },
       boxShadow: {
-        card: '0px 5px 10px 3px rgb(99 102 241 / 40%)'
+        card: '0px 5px 10px 3px rgb(99 102 241 / 40%)',
+        sidebar: '15px 0px 10px 0 #ecf0f3' // 侧边栏的阴影
         // card: '0px 12px 15px 5px rgb(99 102 241 / 40%)'
       },
     }

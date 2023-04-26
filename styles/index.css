@@ -32,14 +32,19 @@
 /*app布局*/
 
 .layout {
-  @apply flex;
-  overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 10px 2px;
+  /*@apply flex;*/
+  /*overflow: hidden;*/
+  box-shadow: 5px 10px 10px 0 #ecf0f3;
   transition: all 0.3s ease 0s;
-  backdrop-filter: blur(10px);
-  background: rgba(247, 247, 247, 0.5);
+  /*backdrop-filter: blur(10px);*/
+  /*background: rgba(247, 247, 247, 0.5);*/
+  background: #f8f8f8;
 }
 .main-app {
+  @apply flex mt-10 overflow-hidden;
+  height: calc(100vh - 65px);
+}
+.main-content {
   @apply py-14 overflow-auto;
   flex: 1;
 }

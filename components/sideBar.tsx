@@ -3,11 +3,14 @@
  * @CreateTime 2023/3/29 15:31
  * @Description
  */
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Menu, MenuProps } from 'antd'
 import Image from 'next/image'
 import { CategoryProp } from '../interfaces'
 import sideBar from '../styles/sideBar.module.css'
+import { motion, useCycle } from 'framer-motion'
+import { MenuToggle } from './menuToggle'
+import clsx from 'clsx'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
@@ -44,7 +47,35 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     })
   }
 
-  return <div className={'bg-inherit'}>
+  const [isOpen, toggleOpen] = useCycle(false, true);
+  const containerRef = useRef(null)
+
+  const sidebar = {
+    open: (height = 1000) => ({
+      // clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+      transition: {
+        type: "spring",
+        stiffness: 20,
+        restDelta: 2
+      }
+    }),
+    closed: {
+      // clipPath: "circle(20px at 30px 30px)",
+      transition: {
+        delay: 0,
+        type: "spring",
+        stiffness: 400,
+        damping: 40
+      }
+    }
+  }
+
+  return <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'} variants={sidebar}
+                     className={clsx(isOpen ? 'w-52' : 'w-0', 'overflow-hidden md:w-52 shadow-sidebar transition-all')}>
+    <div className='fixed md:hidden left-5 top-5 z-40'>
+      <MenuToggle toggle={() => toggleOpen()} />
+    </div>
+    {/*<motion.div className={sideBar.background} variants={sidebar} />*/}
     <div className='flex items-center justify-center bg-inherit h-200'>
       <div className={'bg-transparent'}>
         <Image className={'mx-auto'} width={64} height={64} src={'/images/profile.png'} alt={'profile'} />
@@ -56,11 +87,11 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
       onClick={onClick}
       className={sideBar.menu}
       defaultSelectedKeys={[activeKey]}
-      mode="inline"
+      mode='inline'
       selectedKeys={[activeKey]}
       items={items}>
     </Menu>
-  </div>
+  </motion.nav>
 }
 
 export default SideBar

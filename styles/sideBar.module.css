@@ -1,9 +1,18 @@
 .menu {
-  width: 256px;
-  height: calc(100vh - 200px);
+  /*width: 256px;*/
+  /*height: calc(100vh - 305px);*/
   background: inherit;
 
   /*background-color: #1677ff;*/
   /*color: white;*/
 }
 
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 208px;
+  background: #fff;
+  height: 100vh;
+}
