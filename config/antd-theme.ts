@@ -5,8 +5,8 @@
  */
 export default {
   token: {
-    colorLink: '#8247ff',
-    colorPrimaryBg: '#8247ff',
-    colorPrimary: '#8247ff'
+    colorLink: '#a166ef',
+    colorPrimaryBg: '#a166ef',
+    colorPrimary: '#a166ef'
   }
 }

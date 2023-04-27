@@ -1,5 +1,6 @@
+@import "antd.css";
 .container {
-  @apply shadow-main flex justify-end items-center;
+  @apply shadow-main flex justify-between items-center;
   height: 65px;
   background-color: #ffffff;
   box-shadow: 0 0 10px 5px #0000000d;
@@ -7,4 +8,5 @@
   width: 100%;
   top: 0;
   z-index: 39;
+  padding-left: 15px;
 }

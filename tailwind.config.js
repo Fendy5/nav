@@ -23,6 +23,9 @@ module.exports = {
         main: '#fff'
         // main: 'rgb(245, 245, 245)'
       },
+      textColor: {
+        primary: '#a166ef'
+      },
       boxShadowColor: {
         main: 'rgb(0 0 0 / 5%)'
       },

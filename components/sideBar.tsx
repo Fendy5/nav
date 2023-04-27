@@ -42,7 +42,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
   const onClick: MenuProps['onClick'] = (e) => {
     const categoryElement = document.getElementById('app')
     categoryElement.scrollTo({
-      top: (document.getElementById(e.key).offsetTop || 0) - 25,
+      top: (document.getElementById(e.key).offsetTop || 0) - 75,
       behavior: 'smooth'
     })
   }
@@ -76,9 +76,9 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
       <MenuToggle toggle={() => toggleOpen()} />
     </div>
     {/*<motion.div className={sideBar.background} variants={sidebar} />*/}
-    <div className='flex items-center justify-center bg-inherit h-200'>
+    <div className='flex items-center justify-center bg-inherit h-32'>
       <div className={'bg-transparent'}>
-        <Image className={'mx-auto'} width={64} height={64} src={'/images/profile.png'} alt={'profile'} />
+        {/*<Image className={'mx-auto'} width={64} height={64} src={'/images/profile.png'} alt={'profile'} />*/}
         <p className={'text-lg font-bold text-center'}>互联网人必备导航</p>
         <p className={'text-center text-gray-700'}>为创意工作者而设计</p>
       </div>
@@ -86,9 +86,9 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     <Menu
       onClick={onClick}
       className={sideBar.menu}
-      defaultSelectedKeys={[activeKey]}
+      // defaultSelectedKeys={[activeKey]}
       mode='inline'
-      selectedKeys={[activeKey]}
+      // selectedKeys={[activeKey]}
       items={items}>
     </Menu>
   </motion.nav>

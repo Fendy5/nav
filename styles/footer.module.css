@@ -1,0 +1,15 @@
+.section {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+}
+.section h2{
+  @apply text-lg font-bold;
+}
+.section div {
+  margin: 16px 0;
+}
+.footerItem {
+  display: inline-flex;
+  flex-direction: column;
+}

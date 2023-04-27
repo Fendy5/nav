@@ -7,7 +7,7 @@ import { Tag, Tooltip } from 'antd'
 import SideBar from '../components/sideBar'
 import { Header } from '../components/Header'
 import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
-import { Expand } from '../components/motions/Expand'
+import { Footer } from '../components/Footer'
 
 type toolItem = {
   id: number
@@ -48,8 +48,8 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
     <>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <title>互联网人必备网站导航</title>
-        <meta name='description' content='互联网人必备网站导航' />
+        <title>一点通导航 | 互联网人必备网站导航</title>
+        <meta name='description' content='一点通导航、互联网人必备网站导航、新媒体必备导航、前端必备导航、设计师必备导航' />
       </Head>
       <div className='layout'>
         <Header />
@@ -114,6 +114,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                   })
                 }
               </Container>
+              <Footer />
             </div>
           </div>
         </div>
