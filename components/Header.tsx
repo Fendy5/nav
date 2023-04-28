@@ -11,10 +11,10 @@ import Logo from '../assets/svg/logo.svg'
 
 export const Header = () => {
   return <div className={HeaderCSS.container}>
-    <div className={'flex text-xl font-bold text-primary'}>
+    <div className={'flex text-xl font-bold text-primary pl-8 md:pl-0'}>
       <Image width={32} height={32} src={Logo} alt={'Logo'} />
       <span>一点通导航</span>
     </div>
-    <Button type="link">注册/登录</Button>
+    <Button className={'text-lg mb-2'} type="link">注册/登录</Button>
   </div>
 }

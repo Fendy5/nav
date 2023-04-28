@@ -72,7 +72,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
 
   return <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'} variants={sidebar}
                      className={clsx(isOpen ? 'w-52' : 'w-0', 'overflow-hidden md:w-52 shadow-sidebar transition-all')}>
-    <div className='fixed md:hidden left-5 top-5 z-40'>
+    <div className='fixed md:hidden left-5 top-6 z-40'>
       <MenuToggle toggle={() => toggleOpen()} />
     </div>
     {/*<motion.div className={sideBar.background} variants={sidebar} />*/}
