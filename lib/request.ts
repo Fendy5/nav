@@ -24,7 +24,7 @@ request.interceptors.response.use(
       res.message && message.success(res.message)
       return res
     } else {
-      message.error(res.message)
+      res.message && message.error(res.message)
       return Promise.reject(res)
     }
   },
