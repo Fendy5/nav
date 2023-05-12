@@ -6,16 +6,20 @@
 import React, { useEffect } from 'react'
 import { withRouter } from 'next/router'
 import { getUserInfoApi } from '../../apis/user'
+import qs from 'qs'
 
-interface LoginUrlProp {
-  code: string
-  state: string
-}
-const Login:React.FC = ({ router }:{ router: { query: LoginUrlProp } }) => {
+// interface LoginUrlProp {
+//   code: string
+//   state: string
+// }
+const Login:React.FC = ({ router }:{ router: { asPath: string } }) => {
   const getUserInfo = async () => {
-    const code = router.query.code
-    const userInfo = await getUserInfoApi(code)
-    console.log(userInfo)
+    const { code } = qs.parse((router.asPath as string).split('?')[1])
+    if (typeof code === 'string') {
+      console.log(code)
+      const userInfo = await getUserInfoApi(code)
+      console.log(userInfo)
+    }
   }
   useEffect(() => {
     getUserInfo()
