@@ -1,13 +1,13 @@
 import Container from '../components/container'
 import React, { useEffect, useState } from 'react'
-import { getHomeApi } from '../apis/home'
+import { getHomeApi } from '@/apis/home'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Tag, Tooltip } from 'antd'
 import SideBar from '../components/sideBar'
-import { Header } from '../components/Header'
+import { Header } from '@/components/Header'
 import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
-import { Footer } from '../components/Footer'
+import { Footer } from '@/components/Footer'
 
 type toolItem = {
   id: number
