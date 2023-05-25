@@ -1,5 +1,6 @@
 module.exports = {
   images: {
+    domains: ['thirdwx.qlogo.cn'],
     remotePatterns: [
       {
         protocol: 'https',

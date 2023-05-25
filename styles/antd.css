@@ -1,11 +1,11 @@
 .ant-btn-primary {
-  background-color: #1677ff;
+  background-color: #a166ef;
 }
-.ant-space-item {
-  color: #1677ff;
-}
+/*.ant-space-item {*/
+/*  color: #1677ff;*/
+/*}*/
 
-.ant-menu-item-selected {
-  /*background-color: #8247ff !important;*/
-  color: #fff !important;
-}
+/*.ant-menu-item-selected {*/
+/*  !*background-color: #8247ff !important;*!*/
+/*  color: #fff !important;*/
+/*}*/

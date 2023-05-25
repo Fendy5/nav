@@ -48,3 +48,7 @@
   @apply py-14 overflow-auto;
   flex: 1;
 }
+
+/*button, [type='submit'] {*/
+/*  background-color: unset;*/
+/*}*/

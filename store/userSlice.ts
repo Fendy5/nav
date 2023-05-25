@@ -26,10 +26,14 @@ export const userSlice = createSlice({
   reducers: {
     setUserInfo: (state, action: PayloadAction<UserInfoProp>) => {
       state.userInfo = action.payload
+    },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
     }
   }
 })
 
 export const { setUserInfo } = userSlice.actions
+export const { setToken } = userSlice.actions
 
 export default userSlice.reducer

@@ -5,8 +5,8 @@
  */
 
 import { useEffect, useState } from 'react'
-import { ToolFormProp, ToolProp } from '../interfaces'
-import { addToolApi, deleteToolApi, getToolsApi, updateToolApi } from '../apis/nav-tool'
+import { ToolFormProp, ToolProp } from '@/interfaces'
+import { addToolApi, deleteToolApi, getToolsApi, updateToolApi } from '@/apis/nav-tool'
 import { Form, message, UploadFile } from 'antd'
 
 export default function() {
