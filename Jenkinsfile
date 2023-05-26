@@ -16,14 +16,14 @@ pipeline {
 
     stage('Build') {
       steps {
-//        nodejs(nodeJSInstallationName: 'NodeJS 14.19.3') {
-//          sh 'node -v'
-//          sh 'yarn install'
-//          sh 'yarn build'
-//        }
-            sh 'node -v'
-            sh 'yarn install'
-            sh 'yarn build'
+        nodejs(nodeJSInstallationName: 'NodeJS 16.9.1') {
+          sh 'node -v'
+          sh 'yarn install'
+          sh 'yarn build'
+        }
+//            sh 'node -v'
+//            sh 'yarn install'
+//            sh 'yarn build'
       }
     }
 
