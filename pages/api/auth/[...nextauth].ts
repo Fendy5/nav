@@ -36,7 +36,7 @@ export default NextAuth({
         //   image: '1111', name: '2222', nickname: '33333'
         // }
         // console.log('credentials', credentials)
-        const { data: userInfo } = await getUserInfoApi({ code: '5555' })
+        const { data: userInfo } = await getUserInfoApi({ code: credentials.code })
         console.log('userInfo', userInfo)
         // await dispatch(setUserInfo(userInfo))
         // await router.push('/')
