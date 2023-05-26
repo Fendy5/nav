@@ -25,19 +25,20 @@ export const Header = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    try {
-      // const userInfo = await loginApi()
-      // console.log('userInfo', userInfo)
-      const res = await signIn('wechat', { redirect: false, code: '4444' })
-      console.log('signIn', res)
-      // debugger
-    } catch (e) {
-      const url = e.data
-      if (url) {
-        console.log(e)
-        window.location.href = url
-      }
-    }
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/getUserInfo`
+    // try {
+    //   // const userInfo = await loginApi()
+    //   // console.log('userInfo', userInfo)
+    //   const res = await signIn('wechat', { redirect: false, code: '4444' })
+    //   console.log('signIn', res)
+    //   // debugger
+    // } catch (e) {
+    //   const url = e.data
+    //   if (url) {
+    //     console.log(e)
+    //     window.location.href = url
+    //   }
+    // }
   }
 
   const Logout = () => {
