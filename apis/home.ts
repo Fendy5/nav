@@ -1,3 +1,4 @@
-import { request } from '../lib/request'
+import { request } from '@/lib/request'
+import * as process from 'process'
 
-export const getHomeApi = () => request.get('http://127.0.0.1:7040/api/v1/home')
+export const getHomeApi = () => request.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/home`)
