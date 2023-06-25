@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from 'axios'
 import { message } from 'antd'
 
 const request = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 30000
 })
 
