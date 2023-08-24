@@ -8,11 +8,11 @@ import HeaderCSS from '../styles/header.module.css'
 import { Button, Dropdown, MenuProps, Space } from 'antd'
 import Image from 'next/image'
 import Logo from '../assets/svg/logo.svg'
-import { getTokenApi, loginApi } from '@/apis/user'
 import { selectUserInfo, useAppSelector } from '@/hooks/useRedux'
-import { DownOutlined } from '@ant-design/icons'
+import { DownOutlined, UserOutlined } from '@ant-design/icons'
 import { signIn, useSession, signOut } from 'next-auth/react'
 import * as process from 'process'
+import Link from 'next/link'
 
 const items: MenuProps['items'] = [
   { key: '1', label: '个人中心' },
@@ -42,7 +42,6 @@ export const Header = () => {
   }
 
   const Logout = () => {
-    console.log('signOut', process.env.NEXT_PUBLIC_BASE_URL)
     signOut({ redirect: false, callbackUrl: process.env.NEXT_PUBLIC_BASE_URL })
   }
 
@@ -59,11 +58,19 @@ export const Header = () => {
     functionMap[key]()
   }
 
+  const goToHome = () => {
+    const categoryElement = document.getElementById('app')
+    categoryElement.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   return <div className={HeaderCSS.container}>
-    <div className={'flex text-xl font-bold text-primary pl-8 md:pl-0'}>
+    <Link onClick={goToHome} href={''} className={'flex text-xl font-bold text-primary pl-8 md:pl-0'}>
       <Image width={32} height={32} src={Logo} alt={'Logo'} />
       <span>一点通导航</span>
-    </div>
+    </Link>
     {
       status === 'authenticated' ? (
         <Dropdown menu={{ items, onClick: onDropdownClick }} className={'mr-4'}>
@@ -78,7 +85,7 @@ export const Header = () => {
           </a>
         </Dropdown>
       ) : (
-        <Button onClick={handleLogin} className={'text-lg mb-2'} type='link'>登录</Button>
+        <UserOutlined style={{ fontSize: '18px' }} className={'mr-4'} onClick={handleLogin} />
       )
     }
   </div>

@@ -5,6 +5,7 @@
  */
 import axios, { AxiosResponse } from 'axios'
 import { message } from 'antd'
+import * as process from 'process'
 
 const request = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

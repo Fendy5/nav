@@ -3,10 +3,9 @@
  * @CreateTime 2023/3/29 15:31
  * @Description
  */
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Menu, MenuProps } from 'antd'
-import Image from 'next/image'
-import { CategoryProp } from '../interfaces'
+import { CategoryProp } from '@/interfaces'
 import sideBar from '../styles/sideBar.module.css'
 import { motion, useCycle } from 'framer-motion'
 import { MenuToggle } from './menuToggle'
@@ -35,8 +34,12 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     { type: 'divider' }
   ]
 
+  const getIcon = (url) => {
+    return <img className={'w-4'} src={url} alt={''} />
+  }
+
   categories.forEach(i => {
-    items.push(getItem(i.name, i.uuid))
+    items.push(getItem(i.name, i.uuid, getIcon(i.logo_url)))
   })
 
   const onClick: MenuProps['onClick'] = (e) => {
@@ -70,13 +73,14 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     }
   }
 
+
   return <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'} variants={sidebar}
                      className={clsx(isOpen ? 'w-52' : 'w-0', 'overflow-hidden md:w-52 shadow-sidebar transition-all')}>
     <div className='fixed md:hidden left-5 top-6 z-40'>
       <MenuToggle toggle={() => toggleOpen()} />
     </div>
     {/*<motion.div className={sideBar.background} variants={sidebar} />*/}
-    <div className='flex items-center justify-center bg-inherit h-32'>
+    <div className='flex items-center justify-center bg-inherit h-16 mt-8'>
       <div className={'bg-transparent'}>
         {/*<Image className={'mx-auto'} width={64} height={64} src={'/images/profile.png'} alt={'profile'} />*/}
         <p className={'text-lg font-bold text-center'}>互联网人必备导航</p>
@@ -88,7 +92,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
       className={sideBar.menu}
       // defaultSelectedKeys={[activeKey]}
       mode='inline'
-      // selectedKeys={[activeKey]}
+      selectedKeys={[activeKey]}
       items={items}>
     </Menu>
   </motion.nav>

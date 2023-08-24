@@ -9,6 +9,7 @@ export type NavItemProp = {
 export type CategoryProp = {
   name: string
   uuid: string
+  logo_url: string
   userId?: string
 }
 

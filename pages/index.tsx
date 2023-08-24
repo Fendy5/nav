@@ -8,6 +8,7 @@ import SideBar from '../components/sideBar'
 import { Header } from '@/components/Header'
 import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
 import { Footer } from '@/components/Footer'
+import Image from 'next/image'
 
 type toolItem = {
   id: number
@@ -22,18 +23,26 @@ type toolItem = {
 type toolsItem = {
   name: string
   uuid: string
+  logo_url: string
   tools: toolItem[]
 }
 export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.Element {
   const [activeKey, setActiveKey] = useState(toolList[0].uuid)
 
-  const handleScroll = (e) => {
-    const scroll = document.getElementById('app').scrollTop
+  const handleScroll = () => {
+    // const scroll = document.getElementById('app').scrollTop
+    // console.log('scroll', scroll)
+    // const getBoundingClientRect = document.getElementById('a0OjABnm').parentElement.getBoundingClientRect()
+    // console.log('getBoundingClientRect', getBoundingClientRect.top, getBoundingClientRect.bottom, scroll)
     const key = toolList.find(i => {
-      const tool = document.getElementById(i.uuid).offsetTop
-      const sun = tool - scroll
-      return sun < 50 && sun > 0
+      // const tool = document.getElementById(i.uuid).offsetTop
+      // const sun = tool - scroll
+      // return sun < 60 && sun > 0
+      const { top, bottom } = document.getElementById(i.uuid).parentElement.getBoundingClientRect()
+      console.log(top, bottom)
+      return top < -75 && bottom > 45
     })
+    console.log('-----')
     key && setActiveKey(key.uuid)
   }
 
@@ -62,7 +71,12 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                   toolList.map(i => {
                     return (
                       <div key={i.uuid} className='space-y-6 mb-12'>
-                        <h2 id={i.uuid} className='text-xl font-bold'>{i.name}</h2>
+                        <h2 id={i.uuid} className='text-xl font-bold flex items-center'>
+                          {
+                            i.logo_url && <img className={'w-6'} src={i.logo_url} alt={''} />
+                          }
+                          <span className={'ml-1.5'}>{i.name}</span>
+                        </h2>
                         <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 xxxl:grid-cols-5'>
                           {
                             i.tools.map(j => {

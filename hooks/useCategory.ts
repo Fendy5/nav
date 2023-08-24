@@ -5,7 +5,7 @@
  */
 import { useEffect, useState } from 'react'
 import { Form } from 'antd'
-import { addCategoriesApi, deleteCategoryApi, getCategoriesApi, updateCategoriesApi } from '../apis/category'
+import { addCategoriesApi, deleteCategoryApi, getCategoriesApi, updateCategoriesApi } from '@/apis/category'
 
 export default function useCategory() {
   const [open, setOpen] = useState(false)
@@ -13,7 +13,10 @@ export default function useCategory() {
   const [name, setName] = useState('')
   const [dataSource, setDataSource] = useState([])
   const [isLoading, setLoading] = useState(false)
+  const [logoUrl, setLogoUrl] = useState('')
   const [form] = Form.useForm()
+  const [imageUrl, setImageUrl] = useState('')
+  const [fileList, setFileList] = useState([])
 
   // 新增弹窗
   const showModal = () => {
@@ -28,6 +31,13 @@ export default function useCategory() {
     setOpen(true)
     setUUID(i.uuid)
     form.setFieldsValue({ name: i.name })
+    setName(i.name)
+    if (i.logo_url) {
+      i.url = i.logo_url
+      setFileList([i])
+    } else {
+      setFileList([])
+    }
   }
 
   const hideModal = () => {
@@ -42,7 +52,7 @@ export default function useCategory() {
   }
 
   const submitData = async () => {
-    const { code } = uuid ? await updateCategoriesApi(uuid, { name }): await addCategoriesApi({ name })
+    const { code } = uuid ? await updateCategoriesApi(uuid, { name, logoUrl }): await addCategoriesApi({ name })
     if (code === 1) {
       setOpen(false)
       getList()
@@ -62,5 +72,5 @@ export default function useCategory() {
     getList()
   }, [])
 
-  return { isLoading, setName, showEdit, showModal, dataSource, hideModal, onDelete, onFinish, form, open, uuid }
+  return { fileList, setFileList, imageUrl, setImageUrl, isLoading, setName, showEdit, showModal, dataSource, hideModal, onDelete, onFinish, form, open, uuid, logoUrl, setLogoUrl }
 }
