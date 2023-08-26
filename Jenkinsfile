@@ -7,39 +7,26 @@ pipeline {
       }
     }
 
-//    stage('Pre Build') {
-//      steps {
-//        sh 'rm -rf /www/wwwroot/${ItemName}.fendy5.cn/*'
-//        sh 'mv ./* /www/wwwroot/${ItemName}.fendy5.cn/'
-//      }
-//    }
-
     stage('Build') {
       steps {
-        nodejs(nodeJSInstallationName: 'NodeJS 16.9.1') {
-          sh 'node -v'
-          sh 'yarn install'
-          sh 'yarn build'
-        }
-//            sh 'node -v'
-//            sh 'yarn install'
-//            sh 'yarn build'
+        sh "docker buildx build --progress=plain -t apps-web-${env.ItemName} ."
       }
     }
 
     stage('Deploy') {
       steps {
-//        nodejs(nodeJSInstallationName: 'NodeJS 14.19.3') {
-//          sh 'node -v'
-//          sh 'pm2 start yarn --name nav -- start'
-//          sh 'pm2 save'
-//          sh 'pm2 start yarn --name nav -- start'
-          sh 'pm2 restart nav'
-          sh 'pm2 save'
-//        }
+        script{
+          try {
+            sh "docker stop apps-web-${env.ItemName}"
+            sh "docker rm apps-web-${env.ItemName}"
+          } catch(Exception e) {
+            echo "命令执行出错: ${e.getMessage()}"
+          }
+          sh "docker run -it -d -e TZ=Asia/Shanghai --network apps --ip 172.49.0.2 --restart=always --name apps-web-${env.ItemName} -p 5045:5042 apps-web-${env.ItemName}"
+          sh "docker image prune -f"
+        }
       }
     }
-
   }
   environment {
     ItemName = 'nav'
