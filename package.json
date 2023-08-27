@@ -17,6 +17,7 @@
     "framer-motion": "^10.12.4",
     "gray-matter": "4.0.3",
     "ioredis": "^5.2.4",
+    "lodash": "^4.17.21",
     "nanoid": "^4.0.0",
     "next": "latest",
     "next-auth": "4.20.1",

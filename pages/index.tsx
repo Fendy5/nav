@@ -8,7 +8,7 @@ import SideBar from '../components/sideBar'
 import { Header } from '@/components/Header'
 import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
 import { Footer } from '@/components/Footer'
-import Image from 'next/image'
+import { throttle } from 'lodash'
 
 type toolItem = {
   id: number
@@ -29,22 +29,14 @@ type toolsItem = {
 export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.Element {
   const [activeKey, setActiveKey] = useState(toolList[0].uuid)
 
-  const handleScroll = () => {
-    // const scroll = document.getElementById('app').scrollTop
-    // console.log('scroll', scroll)
-    // const getBoundingClientRect = document.getElementById('a0OjABnm').parentElement.getBoundingClientRect()
-    // console.log('getBoundingClientRect', getBoundingClientRect.top, getBoundingClientRect.bottom, scroll)
+  const handleScroll = throttle(() => {
+    // const { top, bottom } = document.getElementById('a0OjABnm').parentElement.getBoundingClientRect()
     const key = toolList.find(i => {
-      // const tool = document.getElementById(i.uuid).offsetTop
-      // const sun = tool - scroll
-      // return sun < 60 && sun > 0
       const { top, bottom } = document.getElementById(i.uuid).parentElement.getBoundingClientRect()
-      console.log(top, bottom)
-      return top < -75 && bottom > 45
+      return top < 90 && bottom > 45
     })
-    console.log('-----')
     key && setActiveKey(key.uuid)
-  }
+  }, 500)
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, true)
