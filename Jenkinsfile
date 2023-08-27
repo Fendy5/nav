@@ -22,7 +22,7 @@ pipeline {
           } catch(Exception e) {
             echo "命令执行出错: ${e.getMessage()}"
           }
-          sh "docker run -it -d -e TZ=Asia/Shanghai --network apps --ip 172.49.0.2 --restart=always --name apps-web-${env.ItemName} -p 5045:5042 apps-web-${env.ItemName}"
+          sh "docker run -it -d --network apps --ip 172.49.0.2 --restart=always --name apps-web-${env.ItemName} -v /etc/localtime:/etc/localtime:ro -p 5045:5042 apps-web-${env.ItemName}"
           sh "docker image prune -f"
         }
       }

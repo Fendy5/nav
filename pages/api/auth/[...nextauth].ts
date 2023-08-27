@@ -1,11 +1,10 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { getTokenApi, getUserInfoApi } from '@/apis/user'
-import { setUserInfo, UserInfoProp } from '@/store/userSlice'
-import { Provider } from 'react-redux'
+import { getUserInfoApi } from '@/apis/user'
+import { UserInfoProp } from '@/store/userSlice'
 
 export default NextAuth({
-  debug: true,
+  debug: false,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -86,9 +85,9 @@ export default NextAuth({
     // },
     async jwt({ token, user }) {
       if (user) {
-        token.user = user;
+        token.user = user
       }
-      return token;
+      return token
     },
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
