@@ -1,9 +1,6 @@
-/**
- * @Author fendy
- * @CreateTime 2023/4/12 22:40
- * @Description
- */
-export default {
+import { ThemeConfig } from 'antd'
+
+const theme: ThemeConfig = {
   token: {
     colorPrimary: '#a166ef',
     colorLink: '#a166ef',
@@ -14,3 +11,5 @@ export default {
     controlOutlineWidth: 1
   }
 }
+
+export default theme
