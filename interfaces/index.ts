@@ -37,3 +37,8 @@ export type ToolProp = {
   category_id: string
   user_id?: string
 }
+
+export type FeedbackProp = {
+  contact: string | undefined
+  feedback: string
+}

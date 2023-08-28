@@ -4,20 +4,28 @@
  * @Description
  */
 import React from 'react'
-import { Button, Form, Input, Modal, Space } from 'antd'
+import { Button, Form, Input, message, Modal, Space } from 'antd'
+import { FeedbackProp } from '@/interfaces'
+import { storeFeedbackApi } from '@/apis/feedback'
+import { useForm } from 'antd/es/form/Form'
 
 export interface FeedbackFormDataProp {
   contact: string | undefined
   feedback: string
 }
 export const Feedback = ({ show, setShowModal }) => {
-  const onFinish = (formData) => {
-    console.log(formData)
+  const [form] = useForm()
+  const onFinish = async (formData: FeedbackProp) => {
+    const { code, message: msg } = await storeFeedbackApi(formData)
+    if (code === 1) {
+      form.resetFields()
+    }
   }
   return <Modal title={'优化建议'} footer={null} open={show} onCancel={() => { setShowModal(false) }}>
     <Form
       name="basic"
       labelCol={{ span: 4 }}
+      form={form}
       onFinish={onFinish}
       autoComplete="off"
     >
