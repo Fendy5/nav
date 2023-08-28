@@ -3,20 +3,22 @@
  * @CreateTime 2023/4/28 09:49
  * @Description
  */
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Input, message, Modal, Space } from 'antd'
 import { FeedbackProp } from '@/interfaces'
 import { storeFeedbackApi } from '@/apis/feedback'
-import { useForm } from 'antd/es/form/Form'
 
 export interface FeedbackFormDataProp {
   contact: string | undefined
   feedback: string
 }
 export const Feedback = ({ show, setShowModal }) => {
-  const [form] = useForm()
+  const [form] = Form.useForm()
+  const [loading, setLoading] = useState(false)
   const onFinish = async (formData: FeedbackProp) => {
+    setLoading(true)
     const { code, message: msg } = await storeFeedbackApi(formData)
+    setLoading(false)
     if (code === 1) {
       form.resetFields()
     }
@@ -39,7 +41,7 @@ export const Feedback = ({ show, setShowModal }) => {
 
       <Form.Item wrapperCol={{ offset: 4 }}>
         <Space>
-          <Button type="primary" htmlType="submit">提交</Button>
+          <Button loading={loading} type="primary" htmlType="submit">提交</Button>
           <Button onClick={() => { setShowModal(false) }} htmlType="reset">取消</Button>
         </Space>
       </Form.Item>
