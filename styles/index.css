@@ -45,7 +45,7 @@
   height: calc(100vh - 65px);
 }
 .main-content {
-  @apply py-14 overflow-auto;
+  @apply py-12 overflow-auto;
   flex: 1;
 }
 
