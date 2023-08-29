@@ -5,12 +5,12 @@
  */
 import React from 'react'
 import HeaderCSS from '../styles/header.module.css'
-import { Button, Dropdown, MenuProps, Space } from 'antd'
+import { Dropdown, MenuProps, Space } from 'antd'
 import Image from 'next/image'
 import Logo from '../assets/svg/logo.svg'
 import { selectUserInfo, useAppSelector } from '@/hooks/useRedux'
 import { DownOutlined, UserOutlined } from '@ant-design/icons'
-import { signIn, useSession, signOut } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import * as process from 'process'
 import Link from 'next/link'
 
@@ -68,7 +68,7 @@ export const Header = () => {
 
   return <div className={HeaderCSS.container}>
     <Link onClick={goToHome} href={''} className={'flex text-xl font-bold text-primary pl-8 md:pl-0'}>
-      <Image width={32} height={32} src={Logo} alt={'Logo'} />
+      <Image className={HeaderCSS.logoImg} width={32} height={32} src={Logo} alt={'Logo'} />
       <span>一点通导航</span>
     </Link>
     {

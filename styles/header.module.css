@@ -10,7 +10,8 @@
   z-index: 39;
   padding-left: 15px;
 }
-.container img {
+.logoImg {
+  color: transparent;
   @media (max-width: 768px) {
     display: none;
   }
