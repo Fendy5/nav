@@ -34,7 +34,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
     { type: 'divider' }
   ]
 
-  const getIcon = (url) => {
+  const getIcon = (url: string) => {
     return <img className={'w-4'} src={url} alt={''} />
   }
 
@@ -48,10 +48,10 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
       top: (document.getElementById(e.key).offsetTop || 0) - 75,
       behavior: 'smooth'
     })
+    toggleOpen()
   }
 
   const [isOpen, toggleOpen] = useCycle(false, true);
-  const containerRef = useRef(null)
 
   const sidebar = {
     open: (height = 1000) => ({
@@ -72,7 +72,6 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
       }
     }
   }
-
 
   return <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'} variants={sidebar}
                      className={clsx(isOpen ? 'w-52' : 'w-0', 'overflow-hidden md:w-52 shadow-sidebar transition-all')}>
