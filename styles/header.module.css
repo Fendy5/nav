@@ -10,3 +10,8 @@
   z-index: 39;
   padding-left: 15px;
 }
+.container img {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
