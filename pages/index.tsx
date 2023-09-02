@@ -1,6 +1,6 @@
 import Container from '../components/container'
 import React, { useEffect, useState } from 'react'
-import { getHomeApi } from '@/apis/home'
+import { getHomeApi, submitAmountApi } from '@/apis/home'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Tag, Tooltip } from 'antd'
@@ -11,6 +11,7 @@ import { Footer } from '@/components/Footer'
 import { debounce } from 'lodash'
 
 type toolItem = {
+  amount: number
   id: number
   name: string
   logo: string
@@ -37,6 +38,12 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
     })
     key && setActiveKey(key.uuid)
   }, 250)
+
+  // 点击卡片
+  const onClickCard = (id: number, url: string) => {
+    submitAmountApi({ id })
+    window.open(url)
+  }
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, true)
@@ -72,7 +79,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                         <div className='grid gap-x-8 gap-y-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 xxxl:grid-cols-5'>
                           {
                             i.tools.map(j => {
-                              return <Link className='card' key={j.id} prefetch={false} target={'_blank'} href={j.url}>
+                              return <div className='card cursor-pointer ' onClick={() => { onClickCard(j.id, j.url) }} key={j.id}>
                                 <div className='flex'>
                                   <img className='w-8 h-8 mr-2 rounded-full object-cover' src={j.logo} alt='' />
                                   <Tooltip placement='top' title={j.name} arrow={true}>
@@ -97,21 +104,21 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                                 </div>
                                 <div className={'flex justify-between'}>
                                   <div className={'flex'}>
-                                  <span className={'flex'}>
-                                    <HeartOutlined />
-                                    <span className='ml-1'>150</span>
-                                  </span>
-                                    <span className={'ml-3 flex'}>
-                                    <EyeOutlined />
-                                    <span className={'ml-1'}>230</span>
-                                  </span>
+                                    {/*<span className={'flex'}>*/}
+                                    {/*  <HeartOutlined />*/}
+                                    {/*  <span className='ml-1'>150</span>*/}
+                                    {/*</span>*/}
+                                    <span className={'flex'}>
+                                      <EyeOutlined />
+                                      <span className={'ml-1'}>{ j.amount }</span>
+                                    </span>
                                   </div>
                                   <div className={'flex items-center'}>
                                     <Tag className={'ml-2'} color='default'>{j.tag}</Tag>
                                     <Tag color='default'>{j.country}</Tag>
                                   </div>
                                 </div>
-                              </Link>
+                              </div>
                             })
                           }
                         </div>
