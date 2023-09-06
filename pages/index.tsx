@@ -2,13 +2,13 @@ import Container from '../components/container'
 import React, { useEffect, useState } from 'react'
 import { getHomeApi, submitAmountApi } from '@/apis/home'
 import Head from 'next/head'
-import Link from 'next/link'
 import { Tag, Tooltip } from 'antd'
 import SideBar from '../components/sideBar'
 import { Header } from '@/components/Header'
 import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
 import { Footer } from '@/components/Footer'
 import { debounce } from 'lodash'
+import Image from 'next/image'
 
 type toolItem = {
   amount: number
@@ -81,7 +81,8 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
                             i.tools.map(j => {
                               return <div className='card cursor-pointer ' onClick={() => { onClickCard(j.id, j.url) }} key={j.id}>
                                 <div className='flex'>
-                                  <img className='w-8 h-8 mr-2 rounded-full object-cover' src={j.logo} alt='' />
+                                  {/*<img className='w-8 h-8 mr-2 rounded-full object-cover' src={j.logo} alt='' />*/}
+                                  <Image className="mr-2 rounded-full" width={32} height={32} src={j.logo} alt={j.name} />
                                   <Tooltip placement='top' title={j.name} arrow={true}>
                                     <h3 className='text-lg font-bold cursor-pointer truncate'>{j.name}</h3>
                                   </Tooltip>

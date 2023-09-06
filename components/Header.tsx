@@ -75,7 +75,8 @@ export const Header = () => {
       status === 'authenticated' ? (
         <Dropdown menu={{ items, onClick: onDropdownClick }} className={'mr-4'}>
           <a className={'flex cursor-pointer'} onClick={(e) => e.preventDefault()}>
-            <img src={data.user.avatar} className={'rounded-full ml-auto mr-auto w-8 h-8'} alt={'avatar'} />
+            {/*<img src={data.user.avatar} className={'rounded-full ml-auto mr-auto w-8 h-8'} alt={'avatar'} />*/}
+            <Image className="mr-2 rounded-full" width={32} height={32} src={data.user.avatar} alt={data.user.nickname} />
             <Space className={'ml-2'}>
               <span className={'text-black'}>{ data.user.nickname }</span>
               <DownOutlined />
