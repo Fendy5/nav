@@ -4,48 +4,111 @@
  * @Description
  */
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, message, Modal, Select, Upload, UploadProps } from 'antd'
+import { Button, Form, Input, message, Modal, Select, Upload, UploadFile, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
-import { CategoryProp, TagProp } from '../../interfaces'
-import { getCategoriesApi } from '../../apis/category'
-import { getTagsApi } from '../../apis/tag'
+import { CategoryProp, TagProp } from '@/interfaces'
+import { getCategoriesApi } from '@/apis/category'
+import { getTagsApi } from '@/apis/tag'
 import ImgCrop from 'antd-img-crop'
 
-const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    message.error('你只可以上传 JPG/PNG 格式的图片')
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error('图片大小不可以超过2M')
-  }
-  return isJpgOrPng && isLt2M
-}
+// const beforeUpload = (file: RcFile) => {
+//   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+//   if (!isJpgOrPng) {
+//     message.error('你只可以上传 JPG/PNG 格式的图片')
+//   }
+//   const isLt2M = file.size / 1024 / 1024 < 2
+//   if (!isLt2M) {
+//     message.error('图片大小不可以超过2M')
+//   }
+//   return isJpgOrPng && isLt2M
+// }
 
 export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, form, fileList, setFileList, onFinish, submitLoading }) {
   const [loading, setLoading] = useState(false)
   const [categories, setCategories] = useState<CategoryProp[]>()
   const [tagOptions, setTagOptions] = useState<TagProp[]>([])
+  const [previewOpen, setPreviewOpen] = useState(false)
+  const [previewImage, setPreviewImage] = useState('')
+  const [previewTitle, setPreviewTitle] = useState('')
 
-  const handleChange: UploadProps['onChange'] = async ({ file, fileList }) => {
-    if (file.status) {
-      setFileList(fileList)
+  // const handleChange: UploadProps['onChange'] = async ({ file, fileList }) => {
+  //   if (file.status) {
+  //     setFileList(fileList)
+  //   }
+  //   switch (file.status) {
+  //     case 'done':
+  //       form.setFieldValue('image', fileList?.[0].response.image_url)
+  //       message.success('图片上传成功')
+  //       break
+  //     case 'error':
+  //       message.error('上传图片出错，请跟换别的图片')
+  //       setFileList([])
+  //       break
+  //     case 'removed':
+  //       setImageUrl('')
+  //   }
+  // }
+
+  const uploadImage = async (file) => {
+    const formData = new FormData()
+    formData.append('files[]', file as RcFile)
+    try {
+      const res = await fetch('/image-api', {
+        method: 'POST',
+        body: formData
+      })
+      const { code, msg, data } = await res.json()
+      if (code === 1) {
+        form.setFieldsValue({ image: data[0] })
+        setImageUrl(data[0])
+        message.success(msg)
+      } else {
+        message.error(msg)
+      }
+    } catch (e) {
+      message.error('网络错误')
     }
-    switch (file.status) {
-      case 'done':
-        form.setFieldValue('image', fileList?.[0].response.image_url)
-        message.success('图片上传成功')
-        break
-      case 'error':
-        message.error('上传图片出错，请跟换别的图片')
-        setFileList([])
-        break
-      case 'removed':
-        setImageUrl('')
-    }
+  }
+
+  const getBase64 = (file: RcFile): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = (error) => reject(error)
+    })
+  }
+
+  const uploadProps: UploadProps = {
+    onRemove: (file) => {
+      const index = fileList.indexOf(file)
+      const newFileList = fileList.slice()
+      newFileList.splice(index, 1)
+      setFileList(newFileList)
+      form.setFieldsValue({ image: '' })
+    },
+    beforeUpload: () => {
+      return false
+    },
+    onPreview: async (file: UploadFile) => {
+      if (!file.url && !file.preview) {
+        file.preview = await getBase64(file.originFileObj as RcFile)
+      }
+      setPreviewImage(file.url || (file.preview as string))
+      setPreviewOpen(true)
+      setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
+    },
+    onChange: ({ file }) => {
+      if (file.status !== 'removed') {
+        file.url = URL.createObjectURL(file as unknown as Blob)
+        setFileList((fileList) => [...fileList, file])
+        uploadImage(file)
+      }
+    },
+    multiple: true,
+    fileList
   }
 
   const uploadButton = (
@@ -124,20 +187,10 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
             <Input.TextArea placeholder='请输入描述' />
           </Form.Item>
 
-          <Form.Item label='Logo' name='image' rules={[{ required: true, message: '请输入导航描述' }]} >
+          <Form.Item label='Logo' name='image' rules={[{ required: true, message: '请上传Logo' }]} >
             <ImgCrop quality={1} modalTitle={'裁剪图片'} showGrid modalOk={'确定'} modalCancel={'取消'} rotationSlider>
-              <Upload
-                name='image'
-                listType='picture-circle'
-                fileList={fileList}
-                data={
-                  { '100%': true }
-                }
-                action='/image-api'
-                beforeUpload={beforeUpload}
-                onChange={handleChange}
-              >
-                {(imageUrl || fileList?.length >= 1) ? null : uploadButton}
+              <Upload { ...uploadProps } listType='picture-circle'>
+                {(fileList?.length >= 1) ? null : uploadButton}
               </Upload>
             </ImgCrop>
           </Form.Item>
@@ -149,6 +202,10 @@ export default function AddTool({ imageUrl, setImageUrl, toolId, setOpen, open, 
             <Button onClick={() => setOpen(false)} className={'ml-4'}>取消</Button>
           </Form.Item>
         </Form>
+
+        <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={() => setPreviewOpen(false)}>
+          <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        </Modal>
       </div>
     </Modal>
   </>

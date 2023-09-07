@@ -22,9 +22,10 @@ export default function() {
   const [form] = Form.useForm()
 
   const onFinish = async (formData: ToolFormProp) => {
-    if (typeof formData.image === 'string') {
-      formData.logo = formData.image
-    }
+    // if (typeof formData.image === 'string') {
+    //   formData.logo = formData.image
+    // }
+    formData.logo = imageUrl
     setSubmitLoading(true)
     try {
       const { code } = toolId ? await updateToolApi(toolId, formData) : await addToolApi(formData)
