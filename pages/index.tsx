@@ -62,7 +62,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
       <div className='layout'>
         <Header />
         <div className='main-app'>
-          <SideBar activeKey={activeKey} categories={toolList} />
+          <SideBar setActiveKey={setActiveKey} activeKey={activeKey} categories={toolList} />
           <div id={'app'} className='h-screen overflow-auto flex-1'>
             <div className='main-content'>
               <Container>

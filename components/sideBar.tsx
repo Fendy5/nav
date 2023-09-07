@@ -13,7 +13,7 @@ import clsx from 'clsx'
 
 type MenuItem = Required<MenuProps>['items'][number]
 
-export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[], activeKey: string }) => {
+export const SideBar = ({ categories, activeKey, setActiveKey }: { categories: CategoryProp[], activeKey: string, setActiveKey: (id: string) => void }) => {
   function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -43,6 +43,7 @@ export const SideBar = ({ categories, activeKey }: { categories: CategoryProp[],
   })
 
   const onClick: MenuProps['onClick'] = (e) => {
+    setActiveKey(e.key)
     const categoryElement = document.getElementById('app')
     categoryElement.scrollTo({
       top: (document.getElementById(e.key).offsetTop || 0) - 75,
