@@ -9,6 +9,7 @@ import { EyeOutlined, HeartOutlined } from '@ant-design/icons'
 import { Footer } from '@/components/Footer'
 import { debounce } from 'lodash'
 import Image from 'next/image'
+import { appName } from '@/config'
 
 type toolItem = {
   amount: number
@@ -56,7 +57,7 @@ export default function HomePage({ toolList }: { toolList: toolsItem[] }): JSX.E
     <>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <title>一点通导航 | 互联网人必备网站导航</title>
+        <title>{ appName } | 互联网人必备网站导航</title>
         <meta name='description' content='一点通导航、互联网人必备网站导航、新媒体必备导航、前端必备导航、设计师必备导航' />
       </Head>
       <div className='layout'>

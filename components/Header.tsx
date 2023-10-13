@@ -8,11 +8,11 @@ import HeaderCSS from '../styles/header.module.css'
 import { Dropdown, MenuProps, Space } from 'antd'
 import Image from 'next/image'
 import Logo from '../assets/svg/logo.svg'
-import { selectUserInfo, useAppSelector } from '@/hooks/useRedux'
 import { DownOutlined, UserOutlined } from '@ant-design/icons'
 import { useSession, signOut } from 'next-auth/react'
 import * as process from 'process'
 import Link from 'next/link'
+import { appName } from '@/config'
 
 const items: MenuProps['items'] = [
   { key: '1', label: '个人中心' },
@@ -20,7 +20,6 @@ const items: MenuProps['items'] = [
 ]
 
 export const Header = () => {
-  const userInfo = useAppSelector(selectUserInfo)
   const { data, status } = useSession()
 
   const handleLogin = async (e) => {
@@ -69,7 +68,7 @@ export const Header = () => {
   return <div className={HeaderCSS.container}>
     <Link onClick={goToHome} href={''} className={'flex text-xl font-bold text-primary pl-8 md:pl-0'}>
       <Image className={HeaderCSS.logoImg} width={32} height={32} src={Logo} alt={'Logo'} />
-      <span>一点通导航</span>
+      <span className='pl-2'>{ appName }</span>
     </Link>
     {
       status === 'authenticated' ? (

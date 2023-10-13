@@ -4,3 +4,5 @@
  * @Description
  */
 export const tokenKey = 'aGSQuTbP'
+
+export const appName = '零点导航'
